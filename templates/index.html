@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sistema WHOIS</title>
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f4f7fc;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+        }
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+            width: 100%;
+            max-width: 600px;
+            overflow: hidden;
+        }
+        h1 {
+            color: #4A90E2;
+            text-align: center;
+            font-size: 2.2rem;
+            margin-bottom: 20px;
+        }
+        form {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+        input[type="text"] {
+            padding: 12px 20px;
+            font-size: 1rem;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            width: 70%;
+            margin-right: 10px;
+            transition: border-color 0.3s ease;
+        }
+        input[type="text"]:focus {
+            border-color: #4A90E2;
+            outline: none;
+        }
+        button {
+            padding: 12px 20px;
+            font-size: 1rem;
+            background-color: #4A90E2;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+        button:hover {
+            background-color: #357ABD;
+        }
+        #result {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            margin-top: 20px;
+            max-height: 400px; /* Limita a altura máxima */
+            overflow-y: auto; /* Adiciona rolagem se o conteúdo exceder a altura */
+        }
+        h2 {
+            color: #333;
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+        pre {
+            background-color: #f2f2f2;
+            padding: 15px;
+            border-radius: 8px;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            color: #333;
+            font-size: 1rem;
+        }
+        .error {
+            color: #E74C3C;
+            font-size: 1.2rem;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Consulta WHOIS</h1>
+        <form action="/whois" method="POST">
+            <input type="text" name="domain" placeholder="Digite o domínio" required>
+            <button type="submit">Consultar</button>
+        </form>
+
+        <div id="result">
+            {% if domain_info %}
+                <h2>Informações do Domínio: {{ domain }}</h2>
+                <pre>{{ domain_info }}</pre>
+            {% elif error %}
+                <h3 class="error">{{ error }}</h3>
+            {% endif %}
+        </div>
+    </div>
+</body>
+</html>
